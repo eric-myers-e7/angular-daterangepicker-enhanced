@@ -1,12 +1,16 @@
 {
   "name": "angular-daterangepicker-plus",
   "version": "0.1.16",
-  "homepage": "https://github.com/martindalec/angular-daterangepicker-plus",
-  "main": "src/angular-daterangepicker-plus.js",
+  "homepage": "https://github.com/eric-myers-e7/angular-daterangepicker-enhanced",
+  "main": "src/angular-daterangepicker-enhanced.js",
   "authors": [
-    "Chris Martindale <martindalec@live.com>"
+    "Eric Myers <emyers@e7solutions.com>",
+    "Chris Martindale <martindalec@live.com>",
+    "Filip Vařecha <filip.varecha@fragaria.cz>",
+    "Tibor Kulčár <tibor.kulcar@fragaria.cz>",
+    "Lukáš Marek <lukas.marek@fragaria.cz>"
   ],
-  "description": "Angular.js wrapper for Dan Grosmann's bootstrap date range picker based on work by fragaria.",
+  "description": "Angular.js wrapper for Dan Grosmann's bootstrap date range picker based on work by fragaria and martindalec.",
   "license": "MIT",
   "private": false,
   "ignore": [
