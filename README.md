@@ -10,7 +10,7 @@ Angular.js directive for Dan Grossmans's [Bootstrap Datepicker](https://github.c
 ## Installation via Bower
 The easiest way to install the picker is:
 ```
-bower install angular-daterangepicker-plus --save
+bower install angular-daterangepicker-enhanced --save
 ```
 ## Manual installation
 This directive depends on [Bootstrap Datepicker](https://github.com/dangrossman/bootstrap-daterangepicker), [Bootstrap](http://getbootstrap.com), [Moment.js](http://momentjs.com/) and [jQuery](http://jquery.com/).
@@ -24,7 +24,7 @@ Assuming that bower installation directory is `bower_components`. In case of oth
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/momentjs/moment.js"></script>
 <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker-plus.js"></script>
+<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker-enhanced.js"></script>
 
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
 <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
