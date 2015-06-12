@@ -69,7 +69,6 @@
           if (modelCtrl.$modelValue && modelCtrl.$modelValue.startDate === null) {
             return el.val('');
           }
-          $log.info()modelCtrl;
           return el.val(modelCtrl.$viewValue);
         };
         _init = function() {
@@ -101,9 +100,9 @@
               if (!modelCtrl.$isEmpty(modelCtrl.$modelValue)) {
                 _validateMin(date, modelCtrl.$modelValue.startDate);
               }
-              opts['minDate'] = moment(date);
+              opts.minDate = moment(date);
             } else {
-              opts['minDate'] = false;
+              opts.minDate = false;
             }
             return _init();
           });
@@ -114,9 +113,9 @@
               if (!modelCtrl.$isEmpty(modelCtrl.$modelValue)) {
                 _validateMax(date, modelCtrl.$modelValue.endDate);
               }
-              opts['maxDate'] = moment(date);
+              opts.maxDate = moment(date);
             } else {
-              opts['maxDate'] = false;
+              opts.maxDate = false;
             }
             return _init();
           });
