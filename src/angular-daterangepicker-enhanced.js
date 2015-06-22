@@ -1,5 +1,5 @@
 /*
- * @license Angular-DateRangePicker-Plus v0.1.16
+ * @license Angular-DateRangePicker-Enhanced v0.1.18
  */
 (function() {
   var picker;
