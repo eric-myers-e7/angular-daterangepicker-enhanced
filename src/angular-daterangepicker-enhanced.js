@@ -60,7 +60,7 @@
           } else {
             modelCtrl.$setValidity('max', true);
           }
-          return $.trim(el.val());
+          return val;
         });
         modelCtrl.$formatters.push(function(val) {
           if (val) {
