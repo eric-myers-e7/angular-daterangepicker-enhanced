@@ -44,6 +44,9 @@
           return valid;
         };
         modelCtrl.$parsers.push(function(val) {
+          if ($.trim(val) === '') {
+            return '';
+          }
           if (!angular.isObject(val) || !(val.hasOwnProperty('startDate') && val.hasOwnProperty('endDate'))) {
             return modelCtrl.$modelValue;
           }
