@@ -44,6 +44,9 @@
           return valid;
         };
         modelCtrl.$parsers.push(function(val) {
+          if (!angular.isObject(val) || !(val.hasOwnProperty('startDate') && val.hasOwnProperty('endDate'))) {
+            return modelCtrl.$modelValue;
+          }
           if ($scope.dateMin && val.startDate) {
             _validateMin($scope.dateMin, val.startDate);
           } else {
@@ -68,9 +71,6 @@
         };
         modelCtrl.$render = function() {
           if (!modelCtrl.$viewValue) {
-            if (modelCtrl.$modelValue) {
-              return el.val(_format(modelCtrl.$modelValue));
-            }
             return el.val('');
           }
           if (angular.isObject(modelCtrl.$viewValue)) {
