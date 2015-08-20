@@ -1,5 +1,5 @@
 /*
- * @license Angular-DateRangePicker-Enhanced v0.1.19
+ * @license Angular-DateRangePicker-Enhanced v0.1.20
  */
 (function() {
   var picker;
@@ -22,11 +22,11 @@
         opts: '=options'
       },
       link: function($scope, element, attrs, modelCtrl) {
-        var customOpts, el, opts, _formatted, _init, _picker, _validateMax, _validateMin;
+        var customOpts, el, opts, _formatted, _init, _picker, _validateMax, _validateMin, _format;
         el = $(element);
         customOpts = $scope.opts;
         opts = angular.extend({}, dateRangePickerConfig, customOpts);
-      
+
         _validateMin = function(min, start) {
           var valid;
           min = moment(min);
@@ -44,9 +44,6 @@
           return valid;
         };
         modelCtrl.$parsers.push(function(val) {
-          if (!angular.isObject(val) || !(val.hasOwnProperty('startDate') && val.hasOwnProperty('endDate'))) {
-            return modelCtrl.$modelValue;
-          }
           if ($scope.dateMin && val.startDate) {
             _validateMin($scope.dateMin, val.startDate);
           } else {
@@ -57,6 +54,13 @@
           } else {
             modelCtrl.$setValidity('max', true);
           }
+          return $.trim(el.val());
+        });
+        modelCtrl.$formatters.push(function(val) {
+          if (val) {
+            return _format(val);
+          }
+
           return val;
         });
         modelCtrl.$isEmpty = function(val) {
@@ -64,36 +68,39 @@
         };
         modelCtrl.$render = function() {
           if (!modelCtrl.$viewValue) {
+            if (modelCtrl.$modelValue) {
+              return el.val(_format(modelCtrl.$modelValue));
+            }
             return el.val('');
           }
-          if (modelCtrl.$modelValue && modelCtrl.$modelValue.startDate === null) {
-            return el.val('');
+          if (angular.isObject(modelCtrl.$viewValue)) {
+            return el.val(_format(modelCtrl.$viewValue));
           }
           return el.val(modelCtrl.$viewValue);
         };
+
+        _format = function(obj) {
+          if (!angular.isObject(obj.startDate)) {
+            obj.startDate = moment(obj.startDate);
+            obj.endDate = moment(obj.endDate);
+          }
+          var date = obj.startDate.format(opts.format);
+          if (!opts.singleDatePicker) {
+            date += ' - ' + obj.endDate.format(opts.format);
+          }
+          return date;
+        };
+
         _init = function() {
           return el.daterangepicker(opts, function(start, end, label) {
-            $timeout(function() {
-              $log.info('picker setup');
-              return modelCtrl.$setViewValue({
-                startDate: start,
-                endDate: end
-              });
+            modelCtrl.$setViewValue({
+              startDate: start,
+              endDate: end
             });
             return modelCtrl.$render();
           });
         };
         _init();
-        el.change(function() {
-          if ($.trim(el.val()) === '') {
-            return $timeout(function() {
-              return modelCtrl.$setViewValue({
-                startDate: null,
-                endDate: null
-              });
-            });
-          }
-        });
         if (attrs.min) {
           $scope.$watch('dateMin', function(date) {
             if (date) {
@@ -127,11 +134,10 @@
           });
         }
         return $scope.$on('$destroy', function() {
-          return _picker.remove();
+          //return _picker.remove();
         });
       }
     };
   }]);
 
 }).call(this);
-
