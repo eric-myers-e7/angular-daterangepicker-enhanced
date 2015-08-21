@@ -1,6 +1,6 @@
 {
   "name": "angular-daterangepicker-enhanced",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "homepage": "https://github.com/eric-myers-e7/angular-daterangepicker-enhanced",
   "main": "src/angular-daterangepicker-enhanced.js",
   "authors": [
@@ -23,6 +23,6 @@
   "dependencies": {
     "angular": "~1.3.0",
     "bootstrap": "~3.3.0",
-    "bootstrap-daterangepicker": "~1.3.17"
+    "bootstrap-daterangepicker": "~2.0.9"
   }
 }
