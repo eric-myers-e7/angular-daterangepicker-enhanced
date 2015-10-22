@@ -11,7 +11,7 @@
     format: 'YYYY-MM-DD'
   });
 
-  picker.directive('dateRangePicker', ['$log', '$timeout', '$parse', 'dateRangePickerConfig', function($timeout, $parse, dateRangePickerConfig) {
+  picker.directive('dateRangePicker', ['$timeout', '$parse', 'dateRangePickerConfig', function($timeout, $parse, dateRangePickerConfig) {
     return {
       require: 'ngModel',
       restrict: 'A',
