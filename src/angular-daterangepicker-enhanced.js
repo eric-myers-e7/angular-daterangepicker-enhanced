@@ -1,5 +1,5 @@
 /*
- * @license Angular-DateRangePicker-Enhanced v0.1.23
+ * @license Angular-DateRangePicker-Enhanced v0.1.24
  */
 (function() {
   var picker;
@@ -8,7 +8,8 @@
 
   picker.value('dateRangePickerConfig', {
     separator: ' - ',
-    format: 'YYYY-MM-DD'
+    format: 'YYYY-MM-DD', 
+    autoUpdateInput: false
   });
 
   picker.directive('dateRangePicker', ['$timeout', '$parse', 'dateRangePickerConfig', function($timeout, $parse, dateRangePickerConfig) {
@@ -19,7 +20,7 @@
         opts: '=options'
       },
       link: function($scope, element, attrs, modelCtrl) {
-        var customOpts, el, opts, _init, _format;
+        var customOpts, el, opts, _format;
         el = $(element);
         customOpts = $scope.opts;
         opts = angular.extend({}, dateRangePickerConfig, customOpts);
@@ -34,15 +35,19 @@
         modelCtrl.$parsers.push(function(val) {
           return val;
         });
-
         modelCtrl.$render = function() {
-          opts = angular.extend({}, opts, modelCtrl.$viewValue, modelCtrl.$modelValue);
+          var date = angular.extend({}, modelCtrl.$viewValue, modelCtrl.$modelValue);
+          if(date.startDate) {
+            el.val(_format(date));
+          }
           return el.daterangepicker(opts, function(start, end, label) {
             $timeout(function() {
-              return {
+             obj =  {
                 startDate: start,
                 endDate: end
               };
+              el.val(_format(obj));
+              return obj;
             }).then(function(obj) {
               modelCtrl.$setViewValue(obj);
             });
@@ -59,16 +64,15 @@
           }
           return date;
         };
-
-        if (attrs.options) {
-          $scope.$watch('opts', function(newOpts) {
-            opts = angular.extend(opts, newOpts);
-            // return _init();
-          });
-        }
-
-        return $scope.$on('$destroy', function() {
-          //return _picker.remove();
+        el.on('keyup', function () {
+          if(_.trim(el.val()) === '') {
+            modelCtrl.$setViewValue({'startDate': null, 'endDate': null});
+          }else {
+             var m = moment(el.val());
+             if(m.isValid()) {
+                modelCtrl.$setViewValue({'startDate': m, 'endDate': m});
+             }
+          }
         });
       }
     };
