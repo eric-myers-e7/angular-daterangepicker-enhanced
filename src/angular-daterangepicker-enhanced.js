@@ -42,7 +42,7 @@
           }
           return el.daterangepicker(opts, function(start, end, label) {
             $timeout(function() {
-             obj =  {
+             var obj =  {
                 startDate: start,
                 endDate: end
               };
